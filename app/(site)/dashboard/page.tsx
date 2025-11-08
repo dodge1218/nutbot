@@ -13,16 +13,16 @@ function getTimeOfDay() {
 }
 
 export default function DashboardPage() {
-  // Mock data - in production, fetch from database for current user
+  // Mock data - in production, fetch from database
   const sampleFoods = [
-    FOODS_DATABASE.find(f => f.id === 'oats'),
-    FOODS_DATABASE.find(f => f.id === 'blueberries'),
-    FOODS_DATABASE.find(f => f.id === 'greek-yogurt'),
-    FOODS_DATABASE.find(f => f.id === 'chicken-breast'),
-    FOODS_DATABASE.find(f => f.id === 'spinach-cooked'),
-    FOODS_DATABASE.find(f => f.id === 'quinoa'),
-    FOODS_DATABASE.find(f => f.id === 'salmon'),
-  ].filter((f): f is NonNullable<typeof f> => f !== undefined);
+    FOODS_DATABASE.find((f: any) => f.id === 'oats'),
+    FOODS_DATABASE.find((f: any) => f.id === 'blueberries'),
+    FOODS_DATABASE.find((f: any) => f.id === 'greek-yogurt'),
+    FOODS_DATABASE.find((f: any) => f.id === 'chicken-breast'),
+    FOODS_DATABASE.find((f: any) => f.id === 'spinach-cooked'),
+    FOODS_DATABASE.find((f: any) => f.id === 'quinoa'),
+    FOODS_DATABASE.find((f: any) => f.id === 'salmon'),
+  ].filter(Boolean) as any[];
 
   // Analyze intake
   const analysis = analyzeDailyIntake(sampleFoods, {
@@ -122,8 +122,8 @@ export default function DashboardPage() {
             <span className="text-2xl mr-2">🎯</span>
             <h3 className="text-xl font-bold text-gray-900">Top 3 Priorities Today</h3>
           </div>
-          <div className="space-y-3">
-            {analysis.topPriorities.map((priority, index) => (
+          <div className="space-y-2">
+            {analysis.topPriorities.map((priority: any, index: number) => (
               <div key={index} className="flex items-start p-3 bg-gradient-to-r from-primary-50 to-white rounded-lg">
                 <span className="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold text-sm mr-3">
                   {index + 1}
@@ -189,7 +189,7 @@ export default function DashboardPage() {
             <h3 className="text-xl font-bold text-gray-900">Smart Synergy Tips</h3>
           </div>
           <div className="space-y-3">
-            {analysis.synergySuggestions.map((suggestion, index) => (
+            {analysis.synergySuggestions.map((suggestion: any, index: number) => (
               <div
                 key={index}
                 className="border-l-4 border-blue-500 bg-blue-50 p-4 rounded-lg hover:shadow-md transition-shadow"

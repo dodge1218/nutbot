@@ -7,10 +7,10 @@ import { getProductRecommendations } from '@/lib/affiliate';
 export default function RecommendationsPage() {
   // Mock data - in production, fetch from database
   const sampleFoods = [
-    FOODS_DATABASE.find(f => f.id === 'oats'),
-    FOODS_DATABASE.find(f => f.id === 'chicken-breast'),
-    FOODS_DATABASE.find(f => f.id === 'broccoli'),
-  ].filter(Boolean);
+    FOODS_DATABASE.find((f: any) => f.id === 'oats'),
+    FOODS_DATABASE.find((f: any) => f.id === 'chicken-breast'),
+    FOODS_DATABASE.find((f: any) => f.id === 'broccoli'),
+  ].filter(Boolean) as any[];
 
   const analysis = analyzeDailyIntake(sampleFoods as any, {
     sex: 'female',
@@ -103,7 +103,7 @@ export default function RecommendationsPage() {
             <h3 className="text-xl font-bold text-gray-900">Timing Optimization</h3>
           </div>
           <div className="space-y-3">
-            {analysis.timingSuggestions.map((suggestion, index) => (
+            {analysis.timingSuggestions.map((suggestion: any, index: number) => (
               <div key={index} className="border-2 border-gray-200 rounded-xl p-5 hover:border-primary-300 hover:shadow-md transition-all bg-gradient-to-r from-white to-gray-50">
                 <div className="flex items-start">
                   <span className="text-2xl mr-3">⚡</span>
@@ -126,7 +126,7 @@ export default function RecommendationsPage() {
             <h3 className="text-xl font-bold text-gray-900">Nutrient Synergies</h3>
           </div>
           <div className="space-y-3">
-            {analysis.synergySuggestions.map((suggestion, index) => (
+            {analysis.synergySuggestions.map((suggestion: any, index: number) => (
               <div key={index} className="border-2 border-gray-200 rounded-xl p-5 hover:border-primary-300 hover:shadow-md transition-all bg-gradient-to-r from-white to-gray-50">
                 <div className="flex items-start">
                   <span className="text-3xl mr-3">
@@ -150,7 +150,7 @@ export default function RecommendationsPage() {
           <h3 className="text-xl font-bold text-gray-900">Gut Health Support</h3>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {analysis.gutHealthScore.recommendations.map((rec, index) => (
+          {analysis.gutHealthScore.recommendations.map((rec: any, index: number) => (
             <div key={index} className="flex items-start p-4 bg-gradient-to-r from-green-50 to-green-100/50 rounded-xl border border-green-200 hover:shadow-md transition-all">
               <span className="text-green-600 text-xl mr-3">✓</span>
               <p className="text-gray-800 text-sm">{rec}</p>
@@ -170,14 +170,14 @@ export default function RecommendationsPage() {
           <AffiliateDisclosure />
 
           <div className="mt-6 space-y-4">
-            {productRecommendations.map((rec, index) => {
-              const priorityStyles = {
+            {productRecommendations.map((rec: any, index: number) => {
+              const priorityStyles: Record<string, string> = {
                 high: 'border-red-300 bg-gradient-to-r from-red-50 to-red-100/50',
                 medium: 'border-yellow-300 bg-gradient-to-r from-yellow-50 to-yellow-100/50',
                 low: 'border-gray-300 bg-gradient-to-r from-gray-50 to-gray-100/50',
               };
 
-              const priorityBadges = {
+              const priorityBadges: Record<string, string> = {
                 high: 'bg-red-100 text-red-800 border-red-300',
                 medium: 'bg-yellow-100 text-yellow-800 border-yellow-300',
                 low: 'bg-gray-100 text-gray-800 border-gray-300',
@@ -204,7 +204,7 @@ export default function RecommendationsPage() {
                       </div>
                       <div className="flex flex-wrap gap-2 mt-3">
                         <span className="text-xs text-gray-600 font-medium">Addresses:</span>
-                        {rec.fillsGaps.map((gap, i) => (
+                        {rec.fillsGaps.map((gap: any, i: number) => (
                           <span key={i} className="text-xs bg-white px-2 py-1 rounded-full border border-gray-200">
                             {gap}
                           </span>
