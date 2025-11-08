@@ -15,10 +15,10 @@ export default function DashboardPage() {
     FOODS_DATABASE.find(f => f.id === 'spinach-cooked'),
     FOODS_DATABASE.find(f => f.id === 'quinoa'),
     FOODS_DATABASE.find(f => f.id === 'salmon'),
-  ].filter(Boolean);
+  ].filter((f): f is NonNullable<typeof f> => f !== undefined);
 
   // Analyze intake
-  const analysis = analyzeDailyIntake(sampleFoods as any, {
+  const analysis = analyzeDailyIntake(sampleFoods, {
     sex: 'female',
     age: 30,
     activityLevel: 'moderate',
