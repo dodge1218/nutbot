@@ -29,14 +29,14 @@ export default function LogFoodPage() {
   };
 
   const loadCommonMeal = (mealName: string) => {
-    const foodIds = (COMMON_MEALS as any)[mealName];
+    const foodIds = (COMMON_MEALS as any)[mealName] as string[];
     const foods = foodIds
       .map((id: string) => FOODS_DATABASE.find(f => f.id === id))
-      .filter(Boolean);
+      .filter((f: any): f is NonNullable<typeof f> => f !== undefined);
     
     setSelectedFoods([
       ...selectedFoods,
-      ...foods.map(f => ({ ...f, timestamp: new Date() })),
+      ...foods.map((f: any) => ({ ...f, timestamp: new Date() })),
     ]);
   };
 
