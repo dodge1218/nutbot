@@ -1,0 +1,161 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String?  @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Profile information for personalization
+  age               Int?
+  sex               String? // "male", "female", "other"
+  weight            Float? // in kg
+  height            Float? // in cm
+  activityLevel     String? @default("moderate") // "sedentary", "light", "moderate", "active", "very_active"
+  dietaryPattern    String? // "omnivore", "vegetarian", "vegan", "pescatarian"
+  
+  // Preferences
+  showSupplements   Boolean @default(false)
+  wearablesConnected Boolean @default(false)
+  
+  // Relations
+  foodEntries       FoodEntry[]
+  userSettings      UserSettings?
+}
+
+model UserSettings {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Customizable daily value multipliers
+  calorieTarget     Int?
+  proteinTarget     Float?
+  carbTarget        Float?
+  fatTarget         Float?
+  fiberTarget       Float?
+  
+  // Notifications
+  dailyReminder     Boolean  @default(true)
+  reminderTime      String?  @default("20:00")
+  
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model FoodEntry {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // What was eaten
+  foodName    String
+  foodId      String? // Reference to foods database
+  quantity    Float   @default(1.0)
+  unit        String  @default("serving")
+  
+  // When
+  timestamp   DateTime @default(now())
+  mealType    String?  // "breakfast", "lunch", "dinner", "snack"
+  
+  // Nutritional content (denormalized for speed)
+  calories    Float?
+  protein     Float?
+  carbs       Float?
+  fat         Float?
+  fiber       Float?
+  
+  // Micronutrients (all in mg unless noted)
+  vitaminC    Float?
+  vitaminD    Float? // mcg
+  vitaminA    Float? // mcg RAE
+  vitaminE    Float?
+  vitaminK    Float? // mcg
+  vitaminB6   Float?
+  vitaminB12  Float? // mcg
+  folate      Float? // mcg DFE
+  thiamin     Float?
+  riboflavin  Float?
+  niacin      Float?
+  
+  // Minerals
+  calcium     Float?
+  iron        Float?
+  magnesium   Float?
+  potassium   Float?
+  sodium      Float?
+  zinc        Float?
+  selenium    Float? // mcg
+  
+  // Gut health markers
+  isFermented Boolean @default(false)
+  isHighFiber Boolean @default(false)
+  isPolyphenolRich Boolean @default(false)
+  isUltraProcessed Boolean @default(false)
+  
+  // Meta
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([userId, timestamp])
+}
+
+model EducationalContent {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String
+  content     String // Markdown content
+  level       String   @default("beginner") // "beginner", "intermediate", "advanced"
+  
+  // Categorization
+  category    String // "vitamins", "minerals", "gut_health", "synergies", "timing"
+  nutrientTags String // Comma-separated tags like "iron,vitamin_c,calcium"
+  
+  // Display
+  imageUrl    String?
+  readTime    Int?     // in minutes
+  
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([category, published])
+}
+
+model AffiliateProduct {
+  id              String   @id @default(cuid())
+  sku             String   @unique
+  name            String
+  description     String
+  category        String   // "supplement", "food", "equipment"
+  
+  // What gaps it fills
+  fillsNutrients  String   // JSON array of nutrient names
+  
+  // Affiliate info
+  affiliateLink   String
+  price           Float?
+  imageUrl        String?
+  
+  // Display priority
+  priority        Int      @default(100)
+  active          Boolean  @default(true)
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([category, active])
+}
