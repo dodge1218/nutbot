@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
     // Filter by nutrient if provided
     if (nutrient) {
       products = products.filter(p =>
-        p.fillsNutrients.some(n => 
+        p.fillsNutrients.some((n: string) => 
           n.toLowerCase().includes(nutrient.toLowerCase())
         )
       );
