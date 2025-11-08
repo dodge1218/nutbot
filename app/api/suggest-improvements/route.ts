@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     const foodRecommendations = generateSupplementRecommendations(gaps);
 
     // Generate product recommendations (if user has enabled them)
-    let productRecommendations = [];
+    let productRecommendations: any[] = [];
     if (userPreferences?.showSupplements !== false) {
       productRecommendations = getProductRecommendations(gaps);
     }
