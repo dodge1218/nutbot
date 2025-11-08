@@ -1,9 +1,16 @@
 import NutrientBadge from '@/components/NutrientBadge';
 import GapAlert from '@/components/GapAlert';
 import GutHealthScore from '@/components/GutHealthScore';
-import { FOODS_DATABASE, COMMON_MEALS } from '@/data/foods';
+import { FOODS_DATABASE } from '@/data/foods';
 import { analyzeDailyIntake } from '@/lib/nutritionEngine';
 import { getDailyValues, NUTRIENT_NAMES, NUTRIENT_UNITS } from '@/lib/dailyValues';
+
+function getTimeOfDay() {
+  const hour = new Date().getHours();
+  if (hour < 12) return 'morning';
+  if (hour < 18) return 'afternoon';
+  return 'evening';
+}
 
 export default function DashboardPage() {
   // Mock data - in production, fetch from database for current user
@@ -38,37 +45,97 @@ export default function DashboardPage() {
     'calcium',
   ];
 
+  const totalCalories = sampleFoods.reduce((sum, food) => sum + (food.calories || 0), 0);
+
   return (
-    <div className="space-y-8">
-      {/* Welcome Section */}
-      <div>
-        <h2 className="text-3xl font-bold text-gray-900">Today's Nutrition Dashboard</h2>
-        <p className="mt-2 text-gray-600">
-          {new Date().toLocaleDateString('en-US', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}
-        </p>
+    <div className="space-y-6">
+      {/* Welcome Header */}
+      <div className="bg-gradient-to-r from-primary-500 via-primary-600 to-primary-700 rounded-2xl shadow-xl p-8 text-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 opacity-10">
+          <svg className="w-64 h-64" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+        </div>
+        <div className="relative z-10">
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold">Good {getTimeOfDay()}! 👋</h2>
+              <p className="mt-2 text-primary-100 text-lg">
+                {new Date().toLocaleDateString('en-US', {
+                  weekday: 'long',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </p>
+            </div>
+            <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 text-center">
+              <div className="text-3xl font-bold">{sampleFoods.length}</div>
+              <div className="text-sm text-primary-100">foods logged</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Stats Overview */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-primary-500">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-600">Total Calories</p>
+              <p className="text-3xl font-bold text-gray-900 mt-1">{totalCalories}</p>
+            </div>
+            <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+              <span className="text-2xl">🔥</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-blue-500">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-600">Gut Health</p>
+              <p className="text-3xl font-bold text-gray-900 mt-1">{analysis.gutHealthScore.score}</p>
+            </div>
+            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+              <span className="text-2xl">🦠</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-warning-500">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-600">Gaps Found</p>
+              <p className="text-3xl font-bold text-gray-900 mt-1">{analysis.gaps.length}</p>
+            </div>
+            <div className="w-12 h-12 bg-warning-100 rounded-lg flex items-center justify-center">
+              <span className="text-2xl">⚠️</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Top Priorities */}
       {analysis.topPriorities.length > 0 && (
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-xl font-bold text-gray-900 mb-4">🎯 Top 3 Priorities Today</h3>
-          <ul className="space-y-2">
+        <div className="bg-white rounded-xl shadow-md p-6">
+          <div className="flex items-center mb-4">
+            <span className="text-2xl mr-2">🎯</span>
+            <h3 className="text-xl font-bold text-gray-900">Top 3 Priorities Today</h3>
+          </div>
+          <div className="space-y-3">
             {analysis.topPriorities.map((priority, index) => (
-              <li key={index} className="flex items-start">
-                <span className="font-bold text-primary-600 mr-2">{index + 1}.</span>
-                <span className="text-gray-700">{priority}</span>
-              </li>
+              <div key={index} className="flex items-start p-3 bg-gradient-to-r from-primary-50 to-white rounded-lg">
+                <span className="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold text-sm mr-3">
+                  {index + 1}
+                </span>
+                <span className="text-gray-700 flex-1">{priority}</span>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       )}
 
-      {/* Gut Health Score */}
+      {/* Gut Health Score - Full Component */}
       <GutHealthScore
         score={analysis.gutHealthScore.score}
         fiberGrams={analysis.gutHealthScore.fiberGrams}
@@ -78,15 +145,23 @@ export default function DashboardPage() {
       />
 
       {/* Nutrient Gaps */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">⚠️ Nutrient Gaps</h3>
-        <GapAlert gaps={analysis.gaps} maxDisplay={5} />
-      </div>
+      {analysis.gaps.length > 0 && (
+        <div className="bg-white rounded-xl shadow-md p-6">
+          <div className="flex items-center mb-4">
+            <span className="text-2xl mr-2">⚠️</span>
+            <h3 className="text-xl font-bold text-gray-900">Nutrient Gaps</h3>
+          </div>
+          <GapAlert gaps={analysis.gaps} maxDisplay={5} />
+        </div>
+      )}
 
       {/* Key Nutrients Grid */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">📊 Key Nutrients Today</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="bg-white rounded-xl shadow-md p-6">
+        <div className="flex items-center mb-6">
+          <span className="text-2xl mr-2">📊</span>
+          <h3 className="text-xl font-bold text-gray-900">Key Nutrients Today</h3>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {keyNutrients.map((nutrient) => {
             const current = analysis.totals[nutrient] || 0;
             const target = (dailyValues as any)[nutrient] || 1;
@@ -108,16 +183,19 @@ export default function DashboardPage() {
 
       {/* Synergy Suggestions */}
       {analysis.synergySuggestions.length > 0 && (
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-xl font-bold text-gray-900 mb-4">💡 Smart Suggestions</h3>
+        <div className="bg-white rounded-xl shadow-md p-6">
+          <div className="flex items-center mb-4">
+            <span className="text-2xl mr-2">💡</span>
+            <h3 className="text-xl font-bold text-gray-900">Smart Synergy Tips</h3>
+          </div>
           <div className="space-y-3">
             {analysis.synergySuggestions.map((suggestion, index) => (
               <div
                 key={index}
-                className="border-l-4 border-primary-500 bg-primary-50 p-4 rounded"
+                className="border-l-4 border-blue-500 bg-blue-50 p-4 rounded-lg hover:shadow-md transition-shadow"
               >
-                <h4 className="font-semibold text-primary-900">{suggestion.message}</h4>
-                <p className="text-sm text-primary-800 mt-1">{suggestion.actionable}</p>
+                <h4 className="font-semibold text-blue-900 mb-1">{suggestion.message}</h4>
+                <p className="text-sm text-blue-800">{suggestion.actionable}</p>
               </div>
             ))}
           </div>
@@ -125,44 +203,59 @@ export default function DashboardPage() {
       )}
 
       {/* Quick Actions */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">⚡ Quick Actions</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl shadow-md p-6 border border-gray-200">
+        <div className="flex items-center mb-4">
+          <span className="text-2xl mr-2">⚡</span>
+          <h3 className="text-xl font-bold text-gray-900">Quick Actions</h3>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <a
             href="/log-food"
-            className="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 text-center"
+            className="group bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-4 rounded-xl font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all text-center"
           >
-            + Log a Meal
+            <div className="text-2xl mb-1">🍽️</div>
+            <div>Log a Meal</div>
           </a>
           <a
             href="/recommendations"
-            className="bg-white border-2 border-primary-600 text-primary-600 px-6 py-3 rounded-lg font-medium hover:bg-primary-50 text-center"
+            className="group bg-white border-2 border-primary-600 text-primary-600 px-6 py-4 rounded-xl font-medium hover:bg-primary-50 hover:shadow-lg transform hover:-translate-y-0.5 transition-all text-center"
           >
-            View Recommendations
+            <div className="text-2xl mb-1">💡</div>
+            <div>View Tips</div>
           </a>
           <a
             href="/education"
-            className="bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-200 text-center"
+            className="group bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 px-6 py-4 rounded-xl font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all text-center"
           >
-            Learn More
+            <div className="text-2xl mb-1">📚</div>
+            <div>Learn More</div>
           </a>
         </div>
       </div>
 
       {/* Foods Logged Today */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">🍽️ Foods Logged Today</h3>
+      <div className="bg-white rounded-xl shadow-md p-6">
+        <div className="flex items-center mb-4">
+          <span className="text-2xl mr-2">🍽️</span>
+          <h3 className="text-xl font-bold text-gray-900">Foods Logged Today</h3>
+        </div>
         <div className="space-y-2">
           {sampleFoods.map((food, index) => (
             <div
               key={index}
-              className="flex items-center justify-between p-3 bg-gray-50 rounded"
+              className="flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors"
             >
-              <div>
-                <span className="font-medium text-gray-900">{food.name}</span>
-                <span className="text-sm text-gray-500 ml-2">({food.servingSize})</span>
+              <div className="flex items-center flex-1">
+                <div className="w-2 h-2 bg-primary-500 rounded-full mr-3"></div>
+                <div>
+                  <span className="font-medium text-gray-900">{food.name}</span>
+                  <span className="text-sm text-gray-500 ml-2">({food.servingSize})</span>
+                </div>
               </div>
-              <div className="text-sm text-gray-600">{food.calories} kcal</div>
+              <div className="flex items-center">
+                <span className="text-sm font-medium text-gray-600">{food.calories}</span>
+                <span className="text-xs text-gray-500 ml-1">kcal</span>
+              </div>
             </div>
           ))}
         </div>
