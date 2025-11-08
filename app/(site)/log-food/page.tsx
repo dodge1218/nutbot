@@ -48,53 +48,95 @@ export default function LogFoodPage() {
   };
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h2 className="text-3xl font-bold text-gray-900">Log Your Food</h2>
-        <p className="mt-2 text-gray-600">
-          Quick and easy food tracking. Search for foods or use common meal presets.
-        </p>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-2xl shadow-xl p-8 text-white">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold">Log Your Food 🍽️</h2>
+            <p className="mt-2 text-primary-100 text-lg">
+              Quick and easy food tracking. Search for foods or use common meal presets.
+            </p>
+          </div>
+          {selectedFoods.length > 0 && (
+            <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 text-center">
+              <div className="text-3xl font-bold">{selectedFoods.length}</div>
+              <div className="text-sm text-primary-100">items ready</div>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Common Meals */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">⚡ Quick Add: Common Meals</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="bg-white rounded-xl shadow-md p-6">
+        <div className="flex items-center mb-4">
+          <span className="text-2xl mr-2">⚡</span>
+          <h3 className="text-xl font-bold text-gray-900">Quick Add: Common Meals</h3>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {Object.keys(COMMON_MEALS).map((mealName) => (
             <button
               key={mealName}
               onClick={() => loadCommonMeal(mealName)}
-              className="bg-primary-50 text-primary-700 px-4 py-3 rounded-lg font-medium hover:bg-primary-100 border border-primary-200"
+              className="group relative bg-gradient-to-br from-primary-50 to-primary-100 text-primary-700 px-4 py-4 rounded-xl font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all border border-primary-200"
             >
-              {mealName}
+              <div className="flex items-center justify-center">
+                <span className="text-2xl mr-2">🍴</span>
+                <span>{mealName}</span>
+              </div>
             </button>
           ))}
         </div>
       </div>
 
       {/* Search Foods */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">🔍 Search Foods</h3>
+      <div className="bg-white rounded-xl shadow-md p-6">
+        <div className="flex items-center mb-4">
+          <span className="text-2xl mr-2">🔍</span>
+          <h3 className="text-xl font-bold text-gray-900">Search Foods</h3>
+        </div>
         <div className="relative">
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => handleSearch(e.target.value)}
-            placeholder="Search for foods (e.g., 'chicken', 'spinach', 'oats')..."
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-          />
+          <div className="relative">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => handleSearch(e.target.value)}
+              placeholder="Search for foods (e.g., 'chicken', 'spinach', 'oats')..."
+              className="w-full px-12 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all text-lg"
+            />
+            <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            {searchQuery && (
+              <button
+                onClick={() => {setSearchQuery(''); setSearchResults([]);}}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
+          </div>
           
           {searchResults.length > 0 && (
-            <div className="absolute z-10 w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-lg max-h-96 overflow-y-auto">
+            <div className="absolute z-10 w-full mt-2 bg-white border border-gray-200 rounded-xl shadow-2xl max-h-96 overflow-y-auto">
               {searchResults.map((food) => (
                 <button
                   key={food.id}
                   onClick={() => addFood(food)}
-                  className="w-full text-left px-4 py-3 hover:bg-gray-50 border-b border-gray-100 last:border-b-0"
+                  className="w-full text-left px-5 py-4 hover:bg-primary-50 border-b border-gray-100 last:border-b-0 transition-colors group"
                 >
-                  <div className="font-medium text-gray-900">{food.name}</div>
-                  <div className="text-sm text-gray-500">
-                    {food.servingSize} • {food.calories} kcal
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="font-semibold text-gray-900 group-hover:text-primary-700">{food.name}</div>
+                      <div className="text-sm text-gray-500 mt-1">
+                        {food.servingSize} • {food.calories} kcal
+                      </div>
+                    </div>
+                    <svg className="w-5 h-5 text-gray-400 group-hover:text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
                   </div>
                 </button>
               ))}
@@ -105,28 +147,39 @@ export default function LogFoodPage() {
 
       {/* Selected Foods */}
       {selectedFoods.length > 0 && (
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-xl font-bold text-gray-900 mb-4">
-            📝 Items to Log ({selectedFoods.length})
-          </h3>
+        <div className="bg-white rounded-xl shadow-md p-6 border-2 border-primary-200">
+          <div className="flex items-center mb-4">
+            <span className="text-2xl mr-2">📝</span>
+            <h3 className="text-xl font-bold text-gray-900">
+              Items to Log ({selectedFoods.length})
+            </h3>
+          </div>
           <div className="space-y-2 mb-6">
             {selectedFoods.map((food, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between p-3 bg-gray-50 rounded"
+                className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-white rounded-xl hover:shadow-md transition-all group border border-gray-200"
               >
                 <div className="flex-1">
-                  <div className="font-medium text-gray-900">{food.name}</div>
-                  <div className="text-sm text-gray-500">
-                    {food.servingSize} • {food.calories} kcal • 
-                    Protein: {food.protein}g • Fiber: {food.fiber}g
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-primary-500 rounded-full mr-3"></div>
+                    <div>
+                      <div className="font-semibold text-gray-900">{food.name}</div>
+                      <div className="text-sm text-gray-600 mt-1">
+                        {food.servingSize} • {food.calories} kcal
+                        {food.protein ? ` • Protein: ${food.protein}g` : ''}
+                        {food.fiber ? ` • Fiber: ${food.fiber}g` : ''}
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <button
                   onClick={() => removeFood(index)}
-                  className="ml-4 text-red-600 hover:text-red-800"
+                  className="ml-4 w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 text-red-600 hover:bg-red-200 hover:text-red-800 transition-colors"
                 >
-                  ✕
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
                 </button>
               </div>
             ))}
@@ -135,13 +188,13 @@ export default function LogFoodPage() {
           <div className="flex gap-4">
             <button
               onClick={handleSubmit}
-              className="flex-1 bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700"
+              className="flex-1 bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-4 rounded-xl font-semibold hover:shadow-lg transform hover:-translate-y-0.5 transition-all text-lg"
             >
-              Save {selectedFoods.length} Item{selectedFoods.length !== 1 ? 's' : ''}
+              💾 Save {selectedFoods.length} Item{selectedFoods.length !== 1 ? 's' : ''}
             </button>
             <button
               onClick={() => setSelectedFoods([])}
-              className="px-6 py-3 border border-gray-300 rounded-lg font-medium hover:bg-gray-50"
+              className="px-6 py-4 border-2 border-gray-300 rounded-xl font-semibold hover:bg-gray-50 hover:shadow-md transition-all"
             >
               Clear All
             </button>
@@ -150,14 +203,31 @@ export default function LogFoodPage() {
       )}
 
       {/* Tips */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-        <h4 className="font-semibold text-blue-900 mb-2">💡 Tips for Better Tracking</h4>
-        <ul className="text-sm text-blue-800 space-y-1 list-disc list-inside">
-          <li>Log foods as you eat them for better accuracy</li>
-          <li>Use common meal presets to save time</li>
-          <li>Don't stress about perfection — close estimates are fine</li>
-          <li>Track consistently to identify patterns over time</li>
-        </ul>
+      <div className="bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 rounded-xl p-6">
+        <div className="flex items-start">
+          <span className="text-2xl mr-3">💡</span>
+          <div>
+            <h4 className="font-bold text-blue-900 mb-3 text-lg">Tips for Better Tracking</h4>
+            <ul className="text-sm text-blue-800 space-y-2">
+              <li className="flex items-start">
+                <span className="text-blue-600 mr-2">•</span>
+                <span>Log foods as you eat them for better accuracy</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-blue-600 mr-2">•</span>
+                <span>Use common meal presets to save time</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-blue-600 mr-2">•</span>
+                <span>Don't stress about perfection — close estimates are fine</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-blue-600 mr-2">•</span>
+                <span>Track consistently to identify patterns over time</span>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   );

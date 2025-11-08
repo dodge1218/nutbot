@@ -46,32 +46,50 @@ export default function RecommendationsPage() {
   ];
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h2 className="text-3xl font-bold text-gray-900">Personalized Recommendations</h2>
-        <p className="mt-2 text-gray-600">
-          Based on your intake, here's how to close your nutrient gaps
-        </p>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-2xl shadow-xl p-8 text-white">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold">Personalized Recommendations 💊</h2>
+            <p className="mt-2 text-primary-100 text-lg">
+              Based on your intake, here's how to close your nutrient gaps
+            </p>
+          </div>
+          <div className="hidden md:block text-6xl opacity-20">
+            🎯
+          </div>
+        </div>
       </div>
 
       <LegalDisclaimer />
 
       {/* Food-First Recommendations */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">
-          🥗 Food-First Solutions (Prioritize These)
-        </h3>
-        <div className="space-y-6">
+      <div className="bg-white rounded-xl shadow-md p-6">
+        <div className="flex items-center mb-6">
+          <span className="text-2xl mr-2">🥗</span>
+          <h3 className="text-xl font-bold text-gray-900">Food-First Solutions (Prioritize These)</h3>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {foodRecommendations.map((rec, index) => (
-            <div key={index} className="border-l-4 border-primary-500 bg-primary-50 p-4 rounded">
-              <h4 className="font-bold text-primary-900 mb-2">To increase: {rec.gap}</h4>
-              <div className="mb-2">
-                <span className="text-sm font-medium text-primary-800">Top Foods: </span>
-                <span className="text-sm text-primary-700">{rec.foods.join(', ')}</span>
+            <div key={index} className="border-l-4 border-primary-500 bg-gradient-to-r from-primary-50 to-white p-5 rounded-xl shadow-sm hover:shadow-md transition-all">
+              <h4 className="font-bold text-primary-900 mb-3 text-lg">To increase: {rec.gap}</h4>
+              <div className="mb-3">
+                <span className="text-sm font-semibold text-primary-800">Top Foods: </span>
+                <div className="mt-1 flex flex-wrap gap-2">
+                  {rec.foods.map((food, i) => (
+                    <span key={i} className="inline-block bg-white px-3 py-1 rounded-full text-sm text-primary-700 border border-primary-200">
+                      {food}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <p className="text-sm text-primary-800">
-                <strong>Why it matters:</strong> {rec.benefit}
-              </p>
+              <div className="flex items-start bg-primary-100/50 rounded-lg p-3">
+                <span className="text-primary-600 mr-2">💡</span>
+                <p className="text-sm text-primary-900">
+                  <strong>Why it matters:</strong> {rec.benefit}
+                </p>
+              </div>
             </div>
           ))}
         </div>
@@ -79,13 +97,21 @@ export default function RecommendationsPage() {
 
       {/* Meal Timing Suggestions */}
       {analysis.timingSuggestions.length > 0 && (
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-xl font-bold text-gray-900 mb-4">⏰ Timing Optimization</h3>
+        <div className="bg-white rounded-xl shadow-md p-6">
+          <div className="flex items-center mb-4">
+            <span className="text-2xl mr-2">⏰</span>
+            <h3 className="text-xl font-bold text-gray-900">Timing Optimization</h3>
+          </div>
           <div className="space-y-3">
             {analysis.timingSuggestions.map((suggestion, index) => (
-              <div key={index} className="border border-gray-200 rounded-lg p-4">
-                <h4 className="font-semibold text-gray-900">{suggestion.message}</h4>
-                <p className="text-sm text-gray-700 mt-1">{suggestion.actionable}</p>
+              <div key={index} className="border-2 border-gray-200 rounded-xl p-5 hover:border-primary-300 hover:shadow-md transition-all bg-gradient-to-r from-white to-gray-50">
+                <div className="flex items-start">
+                  <span className="text-2xl mr-3">⚡</span>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-2">{suggestion.message}</h4>
+                    <p className="text-sm text-gray-700">{suggestion.actionable}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -94,18 +120,21 @@ export default function RecommendationsPage() {
 
       {/* Synergy Tips */}
       {analysis.synergySuggestions.length > 0 && (
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-xl font-bold text-gray-900 mb-4">🔗 Nutrient Synergies</h3>
+        <div className="bg-white rounded-xl shadow-md p-6">
+          <div className="flex items-center mb-4">
+            <span className="text-2xl mr-2">🔗</span>
+            <h3 className="text-xl font-bold text-gray-900">Nutrient Synergies</h3>
+          </div>
           <div className="space-y-3">
             {analysis.synergySuggestions.map((suggestion, index) => (
-              <div key={index} className="border border-gray-200 rounded-lg p-4">
+              <div key={index} className="border-2 border-gray-200 rounded-xl p-5 hover:border-primary-300 hover:shadow-md transition-all bg-gradient-to-r from-white to-gray-50">
                 <div className="flex items-start">
-                  <span className="text-2xl mr-3">
+                  <span className="text-3xl mr-3">
                     {suggestion.type === 'synergy' ? '✅' : '⚠️'}
                   </span>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">{suggestion.message}</h4>
-                    <p className="text-sm text-gray-700 mt-1">{suggestion.actionable}</p>
+                  <div className="flex-1">
+                    <h4 className="font-bold text-gray-900 mb-2">{suggestion.message}</h4>
+                    <p className="text-sm text-gray-700">{suggestion.actionable}</p>
                   </div>
                 </div>
               </div>
@@ -115,13 +144,16 @@ export default function RecommendationsPage() {
       )}
 
       {/* Gut Health Recommendations */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">🦠 Gut Health Support</h3>
-        <div className="space-y-3">
+      <div className="bg-white rounded-xl shadow-md p-6">
+        <div className="flex items-center mb-4">
+          <span className="text-2xl mr-2">🦠</span>
+          <h3 className="text-xl font-bold text-gray-900">Gut Health Support</h3>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {analysis.gutHealthScore.recommendations.map((rec, index) => (
-            <div key={index} className="flex items-start p-3 bg-green-50 rounded">
-              <span className="text-green-600 mr-2">•</span>
-              <p className="text-gray-800">{rec}</p>
+            <div key={index} className="flex items-start p-4 bg-gradient-to-r from-green-50 to-green-100/50 rounded-xl border border-green-200 hover:shadow-md transition-all">
+              <span className="text-green-600 text-xl mr-3">✓</span>
+              <p className="text-gray-800 text-sm">{rec}</p>
             </div>
           ))}
         </div>
@@ -129,40 +161,59 @@ export default function RecommendationsPage() {
 
       {/* Product Recommendations (if enabled) */}
       {productRecommendations.length > 0 && (
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-xl font-bold text-gray-900 mb-4">
-            💊 Supplement Suggestions (Optional)
-          </h3>
+        <div className="bg-white rounded-xl shadow-md p-6">
+          <div className="flex items-center mb-4">
+            <span className="text-2xl mr-2">💊</span>
+            <h3 className="text-xl font-bold text-gray-900">Supplement Suggestions (Optional)</h3>
+          </div>
           
           <AffiliateDisclosure />
 
           <div className="mt-6 space-y-4">
             {productRecommendations.map((rec, index) => {
-              const priorityColors = {
-                high: 'border-red-300 bg-red-50',
-                medium: 'border-yellow-300 bg-yellow-50',
-                low: 'border-gray-300 bg-gray-50',
+              const priorityStyles = {
+                high: 'border-red-300 bg-gradient-to-r from-red-50 to-red-100/50',
+                medium: 'border-yellow-300 bg-gradient-to-r from-yellow-50 to-yellow-100/50',
+                low: 'border-gray-300 bg-gradient-to-r from-gray-50 to-gray-100/50',
+              };
+
+              const priorityBadges = {
+                high: 'bg-red-100 text-red-800 border-red-300',
+                medium: 'bg-yellow-100 text-yellow-800 border-yellow-300',
+                low: 'bg-gray-100 text-gray-800 border-gray-300',
               };
 
               return (
                 <div
                   key={index}
-                  className={`border-2 ${priorityColors[rec.priority]} rounded-lg p-4`}
+                  className={`border-2 ${priorityStyles[rec.priority]} rounded-xl p-6 hover:shadow-lg transition-all`}
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <h4 className="font-bold text-gray-900">{rec.product.name}</h4>
-                      <p className="text-sm text-gray-600 mt-1">{rec.product.description}</p>
-                      <p className="text-sm font-medium text-gray-800 mt-2">
-                        📊 {rec.reason}
-                      </p>
-                      <p className="text-xs text-gray-600 mt-1">
-                        Addresses: {rec.fillsGaps.join(', ')}
-                      </p>
+                      <div className="flex items-center mb-2">
+                        <h4 className="font-bold text-gray-900 text-lg">{rec.product.name}</h4>
+                        <span className={`ml-3 px-3 py-1 rounded-full text-xs font-semibold border ${priorityBadges[rec.priority]}`}>
+                          {rec.priority.toUpperCase()}
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3">{rec.product.description}</p>
+                      <div className="bg-white/60 rounded-lg p-3 mb-2">
+                        <p className="text-sm font-medium text-gray-800">
+                          📊 {rec.reason}
+                        </p>
+                      </div>
+                      <div className="flex flex-wrap gap-2 mt-3">
+                        <span className="text-xs text-gray-600 font-medium">Addresses:</span>
+                        {rec.fillsGaps.map((gap, i) => (
+                          <span key={i} className="text-xs bg-white px-2 py-1 rounded-full border border-gray-200">
+                            {gap}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                    <div className="ml-4 text-right">
+                    <div className="ml-6 text-right flex-shrink-0">
                       {rec.product.price && (
-                        <div className="text-lg font-bold text-gray-900">
+                        <div className="text-2xl font-bold text-gray-900 mb-3">
                           ${rec.product.price}
                         </div>
                       )}
@@ -170,7 +221,7 @@ export default function RecommendationsPage() {
                         href={rec.product.affiliateLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-2 inline-block bg-primary-600 text-white px-4 py-2 rounded text-sm font-medium hover:bg-primary-700"
+                        className="inline-block bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-3 rounded-xl text-sm font-semibold hover:shadow-lg transform hover:-translate-y-0.5 transition-all"
                       >
                         View Product →
                       </a>
@@ -181,24 +232,34 @@ export default function RecommendationsPage() {
             })}
           </div>
 
-          <p className="text-sm text-gray-600 mt-4 italic">
-            Note: Always consult with a healthcare provider before starting any supplement regimen.
-          </p>
+          <div className="mt-6 bg-yellow-50 border-2 border-yellow-200 rounded-xl p-4">
+            <p className="text-sm text-yellow-900 italic flex items-start">
+              <span className="text-xl mr-2">⚠️</span>
+              <span>Always consult with a healthcare provider before starting any supplement regimen.</span>
+            </p>
+          </div>
         </div>
       )}
 
       {/* Learn More CTA */}
-      <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-lg p-6 text-white">
-        <h3 className="text-xl font-bold mb-2">Want to Learn More?</h3>
-        <p className="mb-4">
-          Check out our educational resources to understand nutrient synergies, absorption, and timing.
-        </p>
-        <a
-          href="/education"
-          className="inline-block bg-white text-primary-600 px-6 py-2 rounded-lg font-medium hover:bg-gray-100"
-        >
-          Browse Education Center →
-        </a>
+      <div className="bg-gradient-to-r from-primary-600 to-primary-700 rounded-2xl p-8 text-white shadow-xl">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="text-2xl font-bold mb-2">Want to Learn More? 📚</h3>
+            <p className="mb-4 text-primary-100 text-lg">
+              Check out our educational resources to understand nutrient synergies, absorption, and timing.
+            </p>
+            <a
+              href="/education"
+              className="inline-block bg-white text-primary-700 px-8 py-3 rounded-xl font-semibold hover:shadow-lg transform hover:-translate-y-0.5 transition-all"
+            >
+              Browse Education Center →
+            </a>
+          </div>
+          <div className="hidden md:block text-8xl opacity-20">
+            🎓
+          </div>
+        </div>
       </div>
     </div>
   );
