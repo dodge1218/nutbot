@@ -52,16 +52,28 @@ export default function LogFoodPage() {
     <PageTransition>
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-2xl shadow-xl p-8 text-white">
-        <div className="flex items-center justify-between">
+      <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-2xl shadow-xl p-8 text-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 opacity-10">
+          <svg className="w-64 h-64" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/>
+          </svg>
+        </div>
+        <div className="relative z-10 flex items-center justify-between">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold">Log Your Food 🍽️</h2>
-            <p className="mt-2 text-primary-100 text-lg">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                </svg>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold">Log Your Food</h2>
+            </div>
+            <p className="mt-2 text-primary-100 text-lg ml-15">
               Quick and easy food tracking. Search for foods or use common meal presets.
             </p>
           </div>
           {selectedFoods.length > 0 && (
-            <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 text-center">
+            <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 text-center border border-white/30">
               <div className="text-3xl font-bold">{selectedFoods.length}</div>
               <div className="text-sm text-primary-100">items ready</div>
             </div>

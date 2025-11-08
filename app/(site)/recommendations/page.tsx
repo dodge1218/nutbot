@@ -50,17 +50,24 @@ export default function RecommendationsPage() {
     <PageTransition>
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-2xl shadow-xl p-8 text-white">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold">Personalized Recommendations 💊</h2>
-            <p className="mt-2 text-primary-100 text-lg">
-              Based on your intake, here's how to close your nutrient gaps
-            </p>
+      <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-2xl shadow-xl p-8 text-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 opacity-10">
+          <svg className="w-64 h-64" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+        </div>
+        <div className="relative z-10">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold">Personalized Recommendations</h2>
           </div>
-          <div className="hidden md:block text-6xl opacity-20">
-            🎯
-          </div>
+          <p className="mt-2 text-primary-100 text-lg ml-15">
+            Based on your intake, here's how to close your nutrient gaps
+          </p>
         </div>
       </div>
 
