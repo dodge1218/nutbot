@@ -1,5 +1,6 @@
 import LegalDisclaimer from '@/components/LegalDisclaimer';
 import AffiliateDisclosure from '@/components/AffiliateDisclosure';
+import PageTransition from '@/components/PageTransition';
 import { FOODS_DATABASE } from '@/data/foods';
 import { analyzeDailyIntake, generateSupplementRecommendations } from '@/lib/nutritionEngine';
 import { getProductRecommendations } from '@/lib/affiliate';
@@ -46,6 +47,7 @@ export default function RecommendationsPage() {
   ];
 
   return (
+    <PageTransition>
     <div className="space-y-6">
       {/* Header */}
       <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-2xl shadow-xl p-8 text-white">
@@ -262,5 +264,6 @@ export default function RecommendationsPage() {
         </div>
       </div>
     </div>
+    </PageTransition>
   );
 }

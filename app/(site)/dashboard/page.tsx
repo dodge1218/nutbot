@@ -1,6 +1,7 @@
 import NutrientBadge from '@/components/NutrientBadge';
 import GapAlert from '@/components/GapAlert';
 import GutHealthScore from '@/components/GutHealthScore';
+import PageTransition from '@/components/PageTransition';
 import { FOODS_DATABASE } from '@/data/foods';
 import { analyzeDailyIntake } from '@/lib/nutritionEngine';
 import { getDailyValues, NUTRIENT_NAMES, NUTRIENT_UNITS } from '@/lib/dailyValues';
@@ -48,6 +49,7 @@ export default function DashboardPage() {
   const totalCalories = sampleFoods.reduce((sum, food) => sum + (food.calories || 0), 0);
 
   return (
+    <PageTransition>
     <div className="space-y-6">
       {/* Welcome Header */}
       <div className="bg-gradient-to-r from-primary-500 via-primary-600 to-primary-700 rounded-2xl shadow-xl p-8 text-white relative overflow-hidden">
@@ -261,5 +263,6 @@ export default function DashboardPage() {
         </div>
       </div>
     </div>
+    </PageTransition>
   );
 }

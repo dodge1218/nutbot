@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { FOODS_DATABASE, COMMON_MEALS, searchFoods } from '@/data/foods';
+import PageTransition from '@/components/PageTransition';
 
 export default function LogFoodPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -48,6 +49,7 @@ export default function LogFoodPage() {
   };
 
   return (
+    <PageTransition>
     <div className="space-y-6">
       {/* Header */}
       <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-2xl shadow-xl p-8 text-white">
@@ -230,5 +232,6 @@ export default function LogFoodPage() {
         </div>
       </div>
     </div>
+    </PageTransition>
   );
 }
