@@ -1,5 +1,10 @@
 # NutBot - Smart Nutrition Tracking with Gut Health Focus
 
+**Version:** 1.0.0  
+**Status:** ✅ Deployed to Production  
+**Live Demo:** https://nutbot-kgaspfo5q-dodge1218s-projects.vercel.app  
+**Repository:** https://github.com/dodge1218/nutbot
+
 A modern, friction-free nutrition tracking app that helps users identify nutrient gaps, optimize meal timing, and support gut health through data-driven insights.
 
 ## ⚠️ Legal Disclaimer
@@ -142,11 +147,14 @@ Optional:
 
 Comprehensive documentation is available in the `/docs` folder:
 
-- **PRD.md**: Product Requirements Document
-- **business-plan.md**: Business model and monetization strategy
-- **legal-disclaimer.md**: Legal compliance and disclaimers
-- **integration-plan.md**: Wearable and biometric integration roadmap
-- **content-model.md**: Educational content structure
+- **PRD.md**: Product Requirements Document (11 sections, full specifications)
+- **business-plan.md**: Business model, market analysis, and financial projections
+- **feature-enhancements.md**: Future feature roadmap with detailed specifications
+- **deployment-guide.md**: Complete DevOps and deployment instructions
+- **task-list.md**: Development tasks and sprint planning
+- **legal-disclaimer.md**: Legal compliance and medical disclaimers
+- **integration-plan.md**: Wearable and biometric integration architecture
+- **content-model.md**: Educational content structure and SEO strategy
 
 ## Development Workflow
 
@@ -188,7 +196,20 @@ Proprietary - All rights reserved
 
 ## Support
 
-For questions or support, please contact [your-email@example.com]
+For questions or support, please open an issue on GitHub.
+
+---
+
+## 🚀 Deployment Status
+
+✅ **Production URL:** https://nutbot-kgaspfo5q-dodge1218s-projects.vercel.app  
+✅ **GitHub Repository:** https://github.com/dodge1218/nutbot  
+✅ **CI/CD:** Automatic deployment on push to main branch  
+✅ **Platform:** Vercel (Next.js optimized)  
+✅ **Database:** PostgreSQL (production) / SQLite (development)  
+✅ **Status:** All systems operational  
+
+**Latest Deployment:** November 8, 2025
 
 ---
 
