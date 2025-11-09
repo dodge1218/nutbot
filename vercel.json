@@ -1,0 +1,22 @@
+{
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "outputDirectory": ".next",
+  "regions": ["iad1"],
+  "env": {
+    "DATABASE_URL": {
+      "type": "string",
+      "description": "Postgres database connection string"
+    },
+    "NEXTAUTH_SECRET": {
+      "type": "string",
+      "description": "Generate with: openssl rand -base64 32"
+    },
+    "NEXTAUTH_URL": {
+      "type": "string",
+      "description": "Your Vercel deployment URL (e.g., https://nutbot.vercel.app)"
+    }
+  }
+}
