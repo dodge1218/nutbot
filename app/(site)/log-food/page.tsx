@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { FOODS_DATABASE, COMMON_MEALS, searchFoods } from '@/data/foods';
 import PageTransition from '@/components/PageTransition';
+import FoodPhotoUpload from '@/components/FoodPhotoUpload';
 
 export default function LogFoodPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -46,6 +47,26 @@ export default function LogFoodPage() {
     console.log('Saving foods:', selectedFoods);
     alert(`Logged ${selectedFoods.length} food items!`);
     setSelectedFoods([]);
+  };
+
+  const handleFoodsRecognized = (recognizedItems: any[]) => {
+    // Add recognized foods to selected foods
+    const foodsToAdd = recognizedItems.map((item) => ({
+      id: item.matchedFoodId || `ai-${Date.now()}-${Math.random()}`,
+      name: item.foodName,
+      category: item.category,
+      calories: item.nutrients?.calories || 0,
+      protein: item.nutrients?.protein || 0,
+      carbs: item.nutrients?.carbs || 0,
+      fat: item.nutrients?.fat || 0,
+      fiber: item.nutrients?.fiber || 0,
+      servingSize: `${item.portionEstimate.amount} ${item.portionEstimate.unit}`,
+      timestamp: new Date(),
+      aiRecognized: true,
+      confidence: item.confidence,
+    }));
+    
+    setSelectedFoods([...selectedFoods, ...foodsToAdd]);
   };
 
   return (
@@ -102,6 +123,9 @@ export default function LogFoodPage() {
           ))}
         </div>
       </div>
+
+      {/* AI Photo Upload */}
+      <FoodPhotoUpload onFoodsRecognized={handleFoodsRecognized} />
 
       {/* Search Foods */}
             {/* Quick Add Buttons */}
