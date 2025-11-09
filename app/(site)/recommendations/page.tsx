@@ -115,7 +115,9 @@ export default function RecommendationsPage() {
             {analysis.timingSuggestions.map((suggestion: any, index: number) => (
               <div key={index} className="border-2 border-gray-200 rounded-xl p-5 hover:border-primary-300 hover:shadow-md transition-all bg-gradient-to-r from-white to-gray-50">
                 <div className="flex items-start">
-                  <span className="text-2xl mr-3">⚡</span>
+                  <svg className="w-6 h-6 text-primary-600 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
                   <div>
                     <h4 className="font-bold text-gray-900 mb-2">{suggestion.message}</h4>
                     <p className="text-sm text-gray-700">{suggestion.actionable}</p>
@@ -155,13 +157,17 @@ export default function RecommendationsPage() {
       {/* Gut Health Recommendations */}
       <div className="bg-white rounded-xl shadow-md p-6">
         <div className="flex items-center mb-4">
-          <span className="text-2xl mr-2">🦠</span>
+          <svg className="w-6 h-6 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+          </svg>
           <h3 className="text-xl font-bold text-gray-900">Gut Health Support</h3>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {analysis.gutHealthScore.recommendations.map((rec: any, index: number) => (
             <div key={index} className="flex items-start p-4 bg-gradient-to-r from-green-50 to-green-100/50 rounded-xl border border-green-200 hover:shadow-md transition-all">
-              <span className="text-green-600 text-xl mr-3">✓</span>
+              <svg className="w-4 h-4 text-green-600 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
               <p className="text-gray-800 text-sm">{rec}</p>
             </div>
           ))}

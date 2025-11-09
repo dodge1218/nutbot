@@ -127,11 +127,11 @@ export default function SettingsPage() {
               onChange={(e) => setProfile({ ...profile, activityLevel: e.target.value })}
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
             >
-              <option value="sedentary">🛋️ Sedentary (little/no exercise)</option>
-              <option value="light">🚶 Light (1-3 days/week)</option>
-              <option value="moderate">🏃 Moderate (3-5 days/week)</option>
-              <option value="active">💪 Active (6-7 days/week)</option>
-              <option value="very_active">🔥 Very Active (intense daily)</option>
+              <option value="sedentary">Sedentary (little/no exercise)</option>
+              <option value="light">Light (1-3 days/week)</option>
+              <option value="moderate">Moderate (3-5 days/week)</option>
+              <option value="active">Active (6-7 days/week)</option>
+              <option value="very_active">Very Active (intense daily)</option>
             </select>
           </div>
 
@@ -142,10 +142,10 @@ export default function SettingsPage() {
               onChange={(e) => setProfile({ ...profile, dietaryPattern: e.target.value })}
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
             >
-              <option value="omnivore">🍖 Omnivore</option>
-              <option value="vegetarian">🥗 Vegetarian</option>
-              <option value="vegan">🌱 Vegan</option>
-              <option value="pescatarian">🐟 Pescatarian</option>
+              <option value="omnivore">Omnivore</option>
+              <option value="vegetarian">Vegetarian</option>
+              <option value="vegan">Vegan</option>
+              <option value="pescatarian">Pescatarian</option>
             </select>
           </div>
         </div>

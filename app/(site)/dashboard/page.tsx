@@ -248,7 +248,9 @@ export default function DashboardPage() {
       {analysis.synergySuggestions.length > 0 && (
         <div className="bg-white rounded-xl shadow-md p-6">
           <div className="flex items-center mb-4">
-            <span className="text-2xl mr-2">💡</span>
+            <svg className="w-6 h-6 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z" />
+            </svg>
             <h3 className="text-xl font-bold text-gray-900">Smart Synergy Tips</h3>
           </div>
           <div className="space-y-3">
@@ -268,7 +270,9 @@ export default function DashboardPage() {
       {/* Quick Actions */}
       <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl shadow-md p-6 border border-gray-200">
         <div className="flex items-center mb-4">
-          <span className="text-2xl mr-2">⚡</span>
+          <svg className="w-6 h-6 text-primary-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
           <h3 className="text-xl font-bold text-gray-900">Quick Actions</h3>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -276,14 +280,22 @@ export default function DashboardPage() {
             href="/log-food"
             className="group bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-4 rounded-xl font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all text-center"
           >
-            <div className="text-2xl mb-1">🍽️</div>
+            <div className="flex justify-center mb-1">
+              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+            </div>
             <div>Log a Meal</div>
           </a>
           <a
             href="/recommendations"
             className="group bg-white border-2 border-primary-600 text-primary-600 px-6 py-4 rounded-xl font-medium hover:bg-primary-50 hover:shadow-lg transform hover:-translate-y-0.5 transition-all text-center"
           >
-            <div className="text-2xl mb-1">💡</div>
+            <div className="flex justify-center mb-1">
+              <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z" />
+              </svg>
+            </div>
             <div>View Tips</div>
           </a>
           <a

@@ -148,7 +148,9 @@ export default function EducationPage() {
 
           <div className="border-l-4 border-purple-500 bg-gradient-to-r from-purple-50 to-purple-100/50 p-5 rounded-xl shadow-sm hover:shadow-md transition-all">
             <div className="flex items-center mb-2">
-              <span className="text-2xl mr-2">🦠</span>
+              <svg className="w-6 h-6 text-purple-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+              </svg>
               <h4 className="font-bold text-purple-900 text-lg">Gut Microbiome</h4>
             </div>
             <p className="text-sm text-purple-800 leading-relaxed">

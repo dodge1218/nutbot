@@ -105,7 +105,9 @@ export default function LogFoodPage() {
       {/* Common Meals */}
       <div className="bg-white rounded-xl shadow-md p-6">
         <div className="flex items-center mb-4">
-          <span className="text-2xl mr-2">⚡</span>
+          <svg className="w-6 h-6 text-primary-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
           <h3 className="text-xl font-bold text-gray-900">Quick Add: Common Meals</h3>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -116,7 +118,9 @@ export default function LogFoodPage() {
               className="group relative bg-gradient-to-br from-primary-50 to-primary-100 text-primary-700 px-4 py-4 rounded-xl font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all border border-primary-200"
             >
               <div className="flex items-center justify-center">
-                <span className="text-2xl mr-2">🍴</span>
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                </svg>
                 <span>{mealName}</span>
               </div>
             </button>
@@ -295,7 +299,9 @@ export default function LogFoodPage() {
       {/* Tips */}
       <div className="bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 rounded-xl p-6">
         <div className="flex items-start">
-          <span className="text-2xl mr-3">💡</span>
+          <svg className="w-6 h-6 text-blue-600 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z" />
+          </svg>
           <div>
             <h4 className="font-bold text-blue-900 mb-3 text-lg">Tips for Better Tracking</h4>
             <ul className="text-sm text-blue-800 space-y-2">
