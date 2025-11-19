@@ -2,51 +2,62 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="absolute inset-0" style={{backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)'}}></div>
-        
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
-          <div className="text-center">
-            <div className="inline-flex items-center bg-white/10 backdrop-blur-sm rounded-full px-6 py-2 mb-8 border border-white/20">
-              <span className="text-sm font-semibold">🎉 Now Live • Free to Use</span>
-            </div>
+      <section className="max-w-5xl mx-auto px-4 py-16 md:py-24">
+        <div className="text-center">
+          <div className="inline-block bg-primary-100 text-primary-700 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+            Free Nutrition Tracker
+          </div>
+          
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+            Track Nutrition.
+            <br />
+            <span className="text-primary-600">Optimize Health.</span>
+          </h1>
+          
+          <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
+            Log meals, track 23+ nutrients, and get personalized recommendations for better gut health and nutrition.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+            <Link
+              href="/log-food"
+              className="bg-primary-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary-700 transition-colors"
+            >
+              Start Tracking
+            </Link>
             
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-              Smart Nutrition Tracking
-              <br />
-              <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
-                For Your Gut Health
-              </span>
-            </h1>
-            
-            <p className="text-xl md:text-2xl text-primary-100 mb-10 max-w-3xl mx-auto leading-relaxed">
-              Track 23+ nutrients, get personalized recommendations, and optimize your gut microbiome. 
-              Science-backed insights in under 30 seconds per meal.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link
-                href="/log-food"
-                className="group w-full sm:w-auto bg-white text-primary-700 px-8 py-4 rounded-xl font-bold text-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all flex items-center justify-center"
-              >
-                <span>Start Tracking Free</span>
-                <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </Link>
-              
-              <Link
-                href="/dashboard"
-                className="w-full sm:w-auto bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/20 transition-all"
-              >
-                View Demo Dashboard
-              </Link>
-            </div>
-            
-            <div className="mt-12 flex items-center justify-center gap-8 text-sm text-primary-100">
+            <Link
+              href="/dashboard"
+              className="bg-white text-primary-600 border-2 border-primary-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary-50 transition-colors"
+            >
+              View Demo
+            </Link>
+          </div>
+          
+          <p className="text-sm text-gray-500">No signup • Free forever</p>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="max-w-6xl mx-auto px-4 pb-20">
+        <div className="grid md:grid-cols-3 gap-6">
+          <div className="bg-white rounded-lg p-6 shadow-sm border">
+            <h3 className="text-lg font-bold mb-2">23+ Nutrients</h3>
+            <p className="text-gray-600 text-sm">Track macros, vitamins, minerals, and more with detailed analysis.</p>
+          </div>
+          <div className="bg-white rounded-lg p-6 shadow-sm border">
+            <h3 className="text-lg font-bold mb-2">Gut Health Score</h3>
+            <p className="text-gray-600 text-sm">Get a 0-100 score based on fiber, fermented foods, and diversity.</p>
+          </div>
+          <div className="bg-white rounded-lg p-6 shadow-sm border">
+            <h3 className="text-lg font-bold mb-2">Quick Logging</h3>
+            <p className="text-gray-600 text-sm">Log meals in 30 seconds with smart search and presets.</p>
+          </div>
+        </div>
+      </section>
+    </div>
               <div className="flex items-center">
                 <svg className="w-5 h-5 mr-2 text-green-300" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
