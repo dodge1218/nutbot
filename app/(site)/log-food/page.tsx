@@ -42,11 +42,35 @@ export default function LogFoodPage() {
     ]);
   };
 
-  const handleSubmit = () => {
-    // In production, save to database via API
-    console.log('Saving foods:', selectedFoods);
-    alert(`Logged ${selectedFoods.length} food items!`);
-    setSelectedFoods([]);
+  const handleSubmit = async () => {
+    if (selectedFoods.length === 0) return;
+
+    try {
+      const response = await fetch('/api/log-food', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ foods: selectedFoods }),
+      });
+
+      if (response.ok) {
+        alert(`Successfully logged ${selectedFoods.length} food items!`);
+        setSelectedFoods([]);
+        setSearchQuery('');
+        setSearchResults([]);
+      } else {
+        const data = await response.json();
+        if (response.status === 401) {
+          alert('Please sign in to log your food.');
+        } else {
+          alert(`Error: ${data.error || 'Failed to log food'}`);
+        }
+      }
+    } catch (error) {
+      console.error('Error submitting foods:', error);
+      alert('An error occurred while logging your food. Please try again.');
+    }
   };
 
   const handleFoodsRecognized = (recognizedItems: any[]) => {

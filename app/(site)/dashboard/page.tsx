@@ -1,3 +1,7 @@
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
+import { authOptions } from '@/lib/auth';
+import { prisma } from '@/lib/prisma';
 import NutrientBadge from '@/components/NutrientBadge';
 import GapAlert from '@/components/GapAlert';
 import GutHealthScore from '@/components/GutHealthScore';
@@ -13,26 +17,51 @@ function getTimeOfDay() {
   return 'evening';
 }
 
-export default function DashboardPage() {
-  // Mock data - in production, fetch from database
-  const sampleFoods = [
-    FOODS_DATABASE.find((f: any) => f.id === 'oats'),
-    FOODS_DATABASE.find((f: any) => f.id === 'blueberries'),
-    FOODS_DATABASE.find((f: any) => f.id === 'greek-yogurt'),
-    FOODS_DATABASE.find((f: any) => f.id === 'chicken-breast'),
-    FOODS_DATABASE.find((f: any) => f.id === 'spinach-cooked'),
-    FOODS_DATABASE.find((f: any) => f.id === 'quinoa'),
-    FOODS_DATABASE.find((f: any) => f.id === 'salmon'),
-  ].filter(Boolean) as any[];
+export default async function DashboardPage() {
+  const session = await getServerSession(authOptions);
 
-  // Analyze intake
-  const analysis = analyzeDailyIntake(sampleFoods, {
-    sex: 'female',
-    age: 30,
-    activityLevel: 'moderate',
+  if (!session?.user?.email) {
+    redirect('/login');
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { email: session.user.email },
+    include: {
+      foodEntries: {
+        where: {
+          timestamp: {
+            gte: new Date(new Date().setHours(0, 0, 0, 0)),
+            lt: new Date(new Date().setHours(23, 59, 59, 999)),
+          },
+        },
+        orderBy: { timestamp: 'desc' },
+      },
+    },
   });
 
-  const dailyValues = getDailyValues({ sex: 'female', age: 30, activityLevel: 'moderate' });
+  if (!user) {
+    redirect('/login');
+  }
+
+  const dailyFoods = user.foodEntries.map((entry: any) => ({
+    ...entry,
+    id: entry.foodId || entry.id,
+    name: entry.foodName,
+    servingSize: `${entry.quantity} ${entry.unit}`,
+  }));
+
+  // Analyze intake
+  const analysis = analyzeDailyIntake(dailyFoods as any, {
+    sex: user.sex || 'female',
+    age: user.age || 30,
+    activityLevel: user.activityLevel || 'moderate',
+  });
+
+  const dailyValues = getDailyValues({ 
+    sex: user.sex || 'female', 
+    age: user.age || 30, 
+    activityLevel: user.activityLevel || 'moderate' 
+  });
 
   // Key nutrients to display
   const keyNutrients = [
@@ -46,7 +75,7 @@ export default function DashboardPage() {
     'calcium',
   ];
 
-  const totalCalories = sampleFoods.reduce((sum, food) => sum + (food.calories || 0), 0);
+  const totalCalories = dailyFoods.reduce((sum: number, food: any) => sum + (food.calories || 0), 0);
 
   return (
     <PageTransition>
@@ -78,7 +107,7 @@ export default function DashboardPage() {
               </p>
             </div>
             <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 text-center border border-white/30">
-              <div className="text-3xl font-bold">{sampleFoods.length}</div>
+              <div className="text-3xl font-bold">{dailyFoods.length}</div>
               <div className="text-sm text-primary-100">foods logged</div>
             </div>
           </div>
@@ -315,7 +344,7 @@ export default function DashboardPage() {
           <h3 className="text-xl font-bold text-gray-900">Foods Logged Today</h3>
         </div>
         <div className="space-y-2">
-          {sampleFoods.map((food, index) => (
+          {dailyFoods.map((food: any, index: number) => (
             <div
               key={index}
               className="flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors"
