@@ -85,11 +85,16 @@ NutBot is a modern nutrition tracking application that helps users identify and 
 - ✅ User authentication and data persistence
 - ✅ Comprehensive food database (1000+ items with brand variants)
 - ✅ AI-powered food recognition (GPT-4 Vision)
+- ✅ Vercel production deployment with Supabase backend
+- 🔄 **IMMEDIATE PRIORITIES (Blocking v1.1):**
+  - 🚨 **Enable Supabase RLS policies** (SECURITY CRITICAL - currently anyone can access all data)
+  - 🚨 **Test authentication flow** (signup, login, logout)
+  - 🚨 **Test core app functionality** (dashboard, log-food, recommendations, settings)
 - 🔄 Affiliate product integration (supplements matched to gaps)
 - 🔄 Recipe suggestions based on detected gaps
 - 🔄 Weekly trend analysis and insights
 - 🔄 Meal planning tools
-- 🔄 RAG system for nutrition knowledge base
+- 🔄 RAG system for nutrition knowledge base (paused for UI stability)
 
 **v1.2 (Q2 2025)**
 - Food interaction database (synergies & conflicts)
